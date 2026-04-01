@@ -49,6 +49,24 @@ void freeNode(PathNode* p) {
     // TODO
 }
 
+static int countTurns(char* path) {
+    int turns = 0;
+    for (int i = 1; path[i] != '\0'; i++) {
+        if (path[i] != path[i-1]) turns++;
+    }
+    return turns;
+}
+
+static int comparePaths(char* a, char* b) {
+    int lenDiff = (int)strlen(a) - (int)strlen(b);
+    if (lenDiff != 0) return lenDiff;
+
+    int turnDiff = countTurns(a) - countTurns(b);
+    if (turnDiff != 0) return turnDiff;
+
+    return strcmp(a, b);
+}
+
 bool addNode(PathLL* paths, char* path) {
     PathNode* newNode = buildNode(path);
     if (paths -> head == NULL || comparePaths(path, paths->head->path) <= 0) {
@@ -121,20 +139,3 @@ void printPaths(PathLL* paths, FILE* fptr) {
 }
 
 
-static int countTurns(char* path) {
-    int turns = 0;
-    for (int i = 1; path[i] != '\0'; i++) {
-        if (path[i] != path[i-1]) turns++;
-    }
-    return turns;
-}
-
-static int comparePaths(char* a, char* b) {
-    int lenDiff = (int)strlen(a) - (int)strlen(b);
-    if (lenDiff != 0) return lenDiff;
-
-    int turnDiff = countTurns(a) - countTurns(b);
-    if (turnDiff != 0) return turnDiff;
-
-    return strcmp(a, b);
-}
