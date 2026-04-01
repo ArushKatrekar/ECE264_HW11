@@ -117,12 +117,8 @@ bool containsNode(PathLL* paths, char* path) {
     // Return true if path exists in the list
     PathNode* curr = paths->head;
     while (curr != NULL) {
-        if (strcmp(curr->path, path) == 0) {
-            return true;
-            curr = curr->next;
-             // Path found in the list
-        }
-        //curr = curr->next;
+        if (strcmp(curr->path, path) == 0) return true;
+        curr = curr->next;
     }
     return false; // Path not found in the list
     // TODO
